@@ -2,6 +2,7 @@ package com.example.partie1;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -16,13 +17,15 @@ public class tictactoe extends Application {
     @Override
     public void start(Stage primaryStage) {
         BorderPane root =new BorderPane();
+        Label label =new Label();
 
-        ImageView image = new ImageView("");
-
+        ImageView image = new ImageView("Croix.png");
+        label.setGraphic(image);
         Scene scene = new Scene(root, 300,300);
         primaryStage.initStyle(StageStyle.UTILITY);
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);
+
         primaryStage.setTitle("Tic Tac Toe");
         // Affichage de la fenêtre
         primaryStage.show();
