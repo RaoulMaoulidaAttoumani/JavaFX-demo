@@ -90,7 +90,11 @@ public class Exercice1 extends Application {
         buttonControl.setPrefSize(200,600);
         buttonControl.setSpacing(10);
         buttonControl.setPadding(new Insets(10, 10, 10, 10));
-
+        // Création du bandeau en bas de la fenêtre
+        HBox bottomControls = new HBox();
+        bottomControls.setAlignment(Pos.BOTTOM_RIGHT );
+        Button btnClose = new Button("Close");
+        bottomControls.getChildren().add( btnClose );
         panCenter.getChildren().addAll(
                 buttonControl,
                 pan
@@ -98,8 +102,12 @@ public class Exercice1 extends Application {
 
         MainWindow.getChildren().addAll(
                 panCenter,
-                menuBar
+                menuBar,
+                bottomControls
+
         );
+
+
 
         Scene scene = new Scene(MainWindow);
 
