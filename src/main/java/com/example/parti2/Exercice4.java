@@ -42,14 +42,17 @@ public class Exercice4 extends Application {
 
 
         // create bottom section with status label
-        this.topLabel = new Label("Vert chois 3 fois");
+        this.topLabel = new Label("Ceci est un label haut de page");
         VBox top = new VBox(topLabel);
         top.setAlignment(Pos.CENTER);
         top.setPadding(new Insets(10));
         root.setTop(top);
 
-        Pane main = new Pane();
+        Pane paneCenter = new Pane();
+        paneCenter.setPrefSize(400, 200);
+        paneCenter.setStyle("-fx-background-color: white;");
 
+        root.setCenter(paneCenter);
 
         HBox hbtn = new HBox();
 
@@ -57,10 +60,11 @@ public class Exercice4 extends Application {
         this.btnR = new Button("Rouge");
         this.btnB = new Button("Bleu");
 
-        // Gestionnaire d'évènements appelé lors du clic sur le bouton
-        EventHandler<MouseEvent> buttonClickHandler = actionEvent -> {
-            topLabel.setText(btnB.getText()+" cliqué");
-        };
+        btnG.addEventHandler(MouseEvent.MOUSE_CLICKED, new Exercice4.ButtonClickHandler(btnG, topLabel, paneCenter));
+        btnR.addEventHandler(MouseEvent.MOUSE_CLICKED, new Exercice4.ButtonClickHandler(btnR, topLabel, paneCenter));
+        btnB.addEventHandler(MouseEvent.MOUSE_CLICKED, new Exercice4.ButtonClickHandler(btnB, topLabel, paneCenter));
+
+
         hbtn.setSpacing(10);
         hbtn.setAlignment(Pos.CENTER);
         hbtn.setPadding(new Insets(10));
@@ -68,17 +72,54 @@ public class Exercice4 extends Application {
         hbtn.getChildren().addAll(btnG, btnR, btnB);
 
         root.setBottom(hbtn);
-        // Changement du texte après un clic sur le bouton
-        btnG.addEventHandler(MouseEvent.MOUSE_CLICKED, buttonClickHandler);
-        btnR.addEventHandler(MouseEvent.MOUSE_CLICKED, buttonClickHandler);
-        btnB.addEventHandler(MouseEvent.MOUSE_CLICKED, buttonClickHandler);
         // set the scene
         Scene scene = new Scene(root, 600, 400);
 
         primaryStage.setScene(scene);
         primaryStage.setTitle("Window Color");
         primaryStage.show();
+    }
+
+    public class ButtonClickHandler implements EventHandler<Event> {
+
+        private Label topLabel;
+        private String textColor;
+
+        private Pane paneCenter;
+
+        private String color;
+
+        private  int countG = 1;
+        private  int countR = 1;
+        private  int countB = 1;
+
+        private int count = 0;
+
+        public ButtonClickHandler(Button btn, Label label, Pane pane) {
+            this.textColor = btn.getText();
+            this.topLabel = label;
+            this.paneCenter = pane;
 
 
+            if (textColor == "Vert") {
+                this.color = "green";
+
+            }
+            if (textColor == "Rouge") {
+                this.color = "red";
+
+            }
+            if (textColor == "Bleu") {
+                this.color = "blue";
+
+            }
+        }
+
+        @Override
+        public void handle(Event event) {
+            // Utiliser le Label récupéré
+            topLabel.setText(textColor + " cliqué " + ++count + " fois");
+            paneCenter.setStyle("-fx-background-color: " + color + ";");
+        }
     }
 }
